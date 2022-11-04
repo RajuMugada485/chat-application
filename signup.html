@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% load static %}
+        <title>Hajime | ChatApp</title>
+        <link rel="stylesheet" href="{% static 'style.css' %}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+    </head>
+    <body>
+        <div class="wrapper">
+            <section class="form signup">
+            <header>Hajime App</header>
+            <div>
+                <style>
+                    h5 {
+                        color: red;
+                    }
+                </style>
+                {% for message in messages %}
+                    <h5>{{ message }}</h5>
+                {% endfor %}
+            </div>
+        <form action="" method="POST">
+            {% csrf_token %}
+            <div class="name-details">
+        <div class="field input">
+            <label>First Name</label>
+            <input type="text" name="first_name" placeholder="Enter FirstName" autofocus>
+        </div>
+        <div class="field input">
+            <label>Last Name</label>
+            <input type="text" name="last_name" placeholder="Enter LastName" autofocus>
+        </div>
+        </div>
+        <div class="field input">
+            <label>UserName</label>
+            <input type="text" name="user_name" placeholder="Enter UserName" autofocus>
+        </div>
+        <div class="field input">
+            <label>Email</label>
+            <input type="text" name="mail" placeholder="Enter Email">
+        </div>
+        <div class="field input">
+            <label>Password</label>
+            <input type="password" name="password" placeholder="Enter Password" id="myinput">
+            <i class="fas fa-eye" onclick="myfunction()"></i>    
+        </div>
+        <div class="field input">
+            <label>Confirm Password</label>
+            <input type="password" name="confirm_password" placeholder="Confirm Password" id="myinput">
+        </div>
+        <div class="field input">
+            <label>Secret key</label>
+            <input type="password" name="secret" placeholder="enter your secret key" id="myinput1">
+            <i class="fas fa-eye" onclick="myfunction1()"></i>
+        </div>
+        <div class="field button">
+            <input type="submit" value="submit">
+        </div>
+    </form>
+    <div class="link">Already signed up?<a href="/hajime/login/" >Login now</a></div>
+       </section> 
+    </div>
+    <script>
+        function myfunction(){
+            var x=document.getElementById('myinput');
+            if(x.type=="password"){
+                x.type="text";
+            }
+            else{
+                x.type="password";
+            }
+        }
+        function myfunction1(){
+            var x=document.getElementById('myinput1');
+            if(x.type=="password"){
+                x.type="text";
+            }
+            else{
+                x.type="password";
+            }
+        }
+    </script>
+    </body>
+</html>

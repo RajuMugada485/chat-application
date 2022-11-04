@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% load static %}
+        <title>Hajime | ChatApp</title>
+        <link rel="stylesheet" href="{% static 'style.css' %}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+    </head>
+    <body>
+        <div class="wrapper">
+            <section class="form signup">
+            <header>Hajime App</header>
+            <div>
+                <style>
+                    h5 {
+                        color: red;
+                    }
+                </style>
+                {% for message in messages %}
+                    <h5>{{ message }}</h5>
+                {% endfor %}
+            </div>
+        <form action="" method="POST">
+            {% csrf_token %}
+        <div class="field input">
+            <label>New Password</label>
+            <input type="password" name="password" placeholder="Enter newpassword" autofocus>
+        </div>
+        <div class="field input">
+            <label>confirm password</label>
+            <input type="password" name="confirm_password" placeholder="Enter confirm_password" autofocus>
+        </div>
+        <div class="field button">
+            <input type="submit" value="submit">
+        </div>
+    </form>
+       </section> 
+    </div>
+    </body>
+</html>

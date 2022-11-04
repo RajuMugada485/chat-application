@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Hajime | ChatApp</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+        {% load static %}
+        <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    </head>
+    <body>
+        <script>
+            window.onload = function() {
+                const searchBar = document.querySelector(".search input");
+                searchIcon = document.querySelector(".search button");
+                searchBar.classList.toggle("show");
+                searchIcon.classList.toggle("active");
+                searchBar.focus();
+                const val = "{% if input_text %}{{ input_text }} {% else %}{{ '' }}{% endif %}".replace(/ /g, "");
+                searchBar.value = val;
+
+                console.log(window.location.hostname);
+                console.log(window.location.pathname);
+                console.log(window.location.port);
+
+                //window.history.back()
+
+            
+                searchBar.onkeyup = ()=>{
+                    console.log("WTF??");
+                    let searchTerm = searchBar.value;
+                    if(searchTerm != ''){
+                        searchBar.classList.add("active");
+                        window.location.replace("/hajime/search/"+"{{ user_name }}"+"&"+searchTerm);
+                    }else{
+                        searchBar.classList.remove("active");
+                        window.location.replace("/hajime/contacts/"+"{{ user_name }}");
+                    }
+                }
+            }
+        </script>
+        <div class="wrapper">
+            <section class="users">
+                <header>
+                    <div class="content">
+                        <img src="#" alt="" width="50" height="50">
+                        <div class="details">
+                            <span>{{ user_name }}</span>
+                            <p>Active now</p>
+                        </div>
+                    </div>
+                </header>
+                <div id="to_submit"></div>
+                <div class="search">
+                    <span class="text">Select user to search</span>
+                    <input type="text" placeholder="Enter username to search">
+                    <button type="submit"  ><i class="fas fa-search"></i></button>
+                    </div>
+                    <form action="" method="POST" id="Contacts" name="Contacts" class="Contacts">
+                        {% csrf_token %}
+
+                        {% for conv_id, contact in conversations.items %}
+                            <div class="users-list">
+                                <a href="{% url 'chat' user_name=user_name conv_id=conv_id %}" onclick="selectUser()">
+                                    <div class="content">
+                                        <img src="#" alt="" width="30" height="30" float="left">
+                                        <div class="details">
+                                            <span>{{ contact.0 }}</span>
+                                            <p>{{ contact.1 }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="status-dot"><i class="fas fa-circle"></i></div>
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </form>
+                    
+            </section>
+        </div>
+        <script>
+            function selectUser() {
+                console.log("Hi");
+                document.getElementById('Contacts').submit();
+            }
+        </script>
+        <script src="{% static 'user_list.js' %}"></script>
+    </body>
+</html>
